@@ -41,10 +41,11 @@ interface CellInterface
      * Adds the first cell to a row of the table body. This can either be a label or a value cell,
      * since there are some tables that don't have body label cells.
      * Note: The row index of the table body restarts at zero.
+     * @param int $offset index of the JSON-stat value array
      * @param int $rowIdx row index
      * @return void
      */
-    public function addFirstCellBody(int $rowIdx): void;
+    public function addFirstCellBody(int $offset, int $rowIdx): void;
 
     /**
      * Add a label cell to a row of the table header.
