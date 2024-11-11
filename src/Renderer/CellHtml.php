@@ -61,8 +61,8 @@ class CellHtml extends AbstractCell
     public function addFirstCellBody(int $offset, int $rowIdx): void
     {
         $this->table->dom->appendRow($this->table->body);
-        if ($this->table->numLabelCols > 0) {
-            $this->addLabelCellBody(0, $rowIdx);
+        for ($colIdx = 0; $colIdx < $this->table->numLabelCols; $colIdx++) {
+            $this->addLabelCellBody($colIdx, $rowIdx);
         }
         $this->addValueCellBody($offset, $rowIdx);
     }

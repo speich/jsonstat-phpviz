@@ -216,9 +216,6 @@ abstract class AbstractTable implements TableInterface
             $remainder = $offset % $this->numValueCols;
             if ($remainder === 0) {
                 $this->rendererCell->addFirstCellBody($offset, $rowIdx);
-                for ($colIdx = 1; $colIdx < $this->numLabelCols; $colIdx++) {
-                    $this->rendererCell->addLabelCellBody($colIdx, $rowIdx);
-                }
             }
             elseif ($remainder < $this->numValueCols - 1) {
                 $this->rendererCell->addValueCellBody($offset, $rowIdx);
