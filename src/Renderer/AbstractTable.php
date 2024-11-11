@@ -213,21 +213,21 @@ abstract class AbstractTable implements TableInterface
     {
         $rowIdx = 0;
         for ($offset = 0, $len = $this->reader->getNumValues(); $offset < $len; $offset++) {
-            if ($offset % $this->numValueCols === 0) {
+            $remainder = $offset % $this->numValueCols;
+            if ($remainder === 0) {
                 $this->rendererCell->addFirstCellBody($rowIdx);
                 for ($colIdx = 1; $colIdx < $this->numLabelCols; $colIdx++) {
                     $this->rendererCell->addLabelCellBody($colIdx, $rowIdx);
                 }
             }
-            if ($offset % $this->numValueCols < $this->numValueCols - 1) {
+            if ($remainder < $this->numValueCols - 1) {
                 $this->rendererCell->addValueCellBody($offset, $rowIdx);
-            } elseif ($offset % $this->numValueCols === $this->numValueCols - 1) {
+            } elseif ($remainder === $this->numValueCols - 1) {
                 $this->rendererCell->addLastCellBody($offset, $rowIdx);
                 $rowIdx++;
             }
         }
     }
-
     /**
      * Is this the last row of the table header rows?
      * Takes the state of the property CellHtml::noLabelLastDim into account.
