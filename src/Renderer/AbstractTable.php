@@ -213,18 +213,31 @@ abstract class AbstractTable implements TableInterface
     {
         $rowIdx = 0;
         for ($offset = 0, $len = $this->reader->getNumValues(); $offset < $len; $offset++) {
-            $remainder = $offset % $this->numValueCols;
-            if ($remainder === 0) {
-                $this->rendererCell->addFirstCellBody($offset, $rowIdx);
-            }
-            elseif ($remainder < $this->numValueCols - 1) {
-                $this->rendererCell->addValueCellBody($offset, $rowIdx);
-            } elseif ($remainder === $this->numValueCols - 1) {
-                $this->rendererCell->addLastCellBody($offset, $rowIdx);
+            $this->addCells($offset, $rowIdx);
+            if ($offset % $this->numValueCols === $this->numValueCols - 1) {
                 $rowIdx++;
             }
         }
     }
+
+    /**
+     * Add the cells of a row.
+     * @param int $offset current index of the value array
+     * @param int $rowIdx row index
+     * @return void
+     */
+    public function addCells(int $offset, int $rowIdx): void
+    {
+        $remainder = $offset % $this->numValueCols;
+        if ($remainder === 0) {
+            $this->rendererCell->addFirstCellBody($offset, $rowIdx);
+        } elseif ($remainder < $this->numValueCols - 1) {
+            $this->rendererCell->addValueCellBody($offset, $rowIdx);
+        } elseif ($remainder === $this->numValueCols - 1) {
+            $this->rendererCell->addLastCellBody($offset, $rowIdx);
+        }
+    }
+
     /**
      * Is this the last row of the table header rows?
      * Takes the state of the property CellHtml::noLabelLastDim into account.
