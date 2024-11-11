@@ -65,14 +65,16 @@ class CellTsv extends AbstractCell
 
     /**
      * Add the category label of the first dimension to the table body.
-     * @param int $rowIdx row index
+     * @param int $offset
+     * @param int $rowIdx
      * @return void
      */
-    public function addFirstCellBody(int $rowIdx): void
+    public function addFirstCellBody(int $offset, int $rowIdx): void
     {
         if ($this->table->numLabelCols > 0) {
             $this->addLabelCellBody(0, $rowIdx);
         }
+        $this->addValueCellBody($offset, $rowIdx);
     }
 
     /**

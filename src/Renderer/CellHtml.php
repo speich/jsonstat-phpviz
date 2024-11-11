@@ -53,16 +53,18 @@ class CellHtml extends AbstractCell
      * Adds the first cell to a row of the table body. This can either be a label or a value cell,
      * since there are some tables that don't have body label cells.
      * Note: The row index of the table body restarts at zero.
-     * @param int $rowIdx row index
+     * @param int $offset
+     * @param int $rowIdx
      * @return void
      * @throws DOMException
      */
-    public function addFirstCellBody(int $rowIdx): void
+    public function addFirstCellBody(int $offset, int $rowIdx): void
     {
         $this->table->dom->appendRow($this->table->body);
         if ($this->table->numLabelCols > 0) {
             $this->addLabelCellBody(0, $rowIdx);
         }
+        $this->addValueCellBody($offset, $rowIdx);
     }
 
     /**

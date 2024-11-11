@@ -47,14 +47,16 @@ class CellExcel extends AbstractCell
 
     /**
      * Add the first cell to a row of the table body.
-     * @param int $rowIdx row index
+     * @param int $offset
+     * @param int $rowIdx
      * @return void
      */
-    public function addFirstCellBody(int $rowIdx): void
+    public function addFirstCellBody(int $offset, int $rowIdx): void
     {
         if ($this->table->numLabelCols > 0) {
             $this->addLabelCellBody(0, $rowIdx);
         }
+        $this->addValueCellBody($offset, $rowIdx);
     }
 
     /**
