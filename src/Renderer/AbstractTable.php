@@ -215,12 +215,12 @@ abstract class AbstractTable implements TableInterface
         for ($offset = 0, $len = $this->reader->getNumValues(); $offset < $len; $offset++) {
             $remainder = $offset % $this->numValueCols;
             if ($remainder === 0) {
-                $this->rendererCell->addFirstCellBody($rowIdx);
+                $this->rendererCell->addFirstCellBody($offset, $rowIdx);
                 for ($colIdx = 1; $colIdx < $this->numLabelCols; $colIdx++) {
                     $this->rendererCell->addLabelCellBody($colIdx, $rowIdx);
                 }
             }
-            if ($remainder < $this->numValueCols - 1) {
+            elseif ($remainder < $this->numValueCols - 1) {
                 $this->rendererCell->addValueCellBody($offset, $rowIdx);
             } elseif ($remainder === $this->numValueCols - 1) {
                 $this->rendererCell->addLastCellBody($offset, $rowIdx);
